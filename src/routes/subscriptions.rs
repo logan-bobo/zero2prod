@@ -49,6 +49,8 @@ pub async fn subscribe(
 
     let subscription_token = generat_subscription_token();
     if store_token(&mut transaction, subscriber_id, &subscription_token)
+        .await
+        .is_err()
     {
         return HttpResponse::InternalServerError().finish();
     }
@@ -93,7 +95,6 @@ pub async fn store_token(
         e
     })?;
 
->>>>>>> 234f949 (send a confirmation email)
     Ok(())
 }
 
